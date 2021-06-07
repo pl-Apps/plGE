@@ -11,7 +11,7 @@ Display* displ;
 int screen;
 Window win;
 GC gc;
-unsigned long black, white, red, blue;
+unsigned long white, black, red, blue, background_color_dark, foreground_color_dark;
 
 void init();
 void close();
@@ -25,7 +25,7 @@ struct coord {
 int main()
 {
 	init();
-	while(1)
+	while(true)
 	{
 		XEvent event;
 		XNextEvent(displ, &event);
@@ -43,10 +43,10 @@ int main()
 		if(event.type == ButtonPress)
 		{
 			int x=event.xbutton.x, y=event.xbutton.y;
-			XSetForeground(displ, gc, red);
+			XSetForeground(displ, gc, foreground_color_dark);
 			XDrawLine(displ, win, gc, dot.x, dot.y, x, y);
 			XSetForeground(displ, gc, blue);
-			strcpy(text, ".");
+			strcpy(text, "");
 			XDrawString(displ, win, gc, x, y, text, strlen(text));
 			dot.x=x;
 			dot.y = y;
@@ -57,20 +57,22 @@ int main()
 
 void init()
 {
-	dot.x=100;
-	dot.y=100;
+	dot.x=1920;
+	dot.y=1080;
 	displ=XOpenDisplay((char *)0);
 	screen=DefaultScreen(displ);
-	black=BlackPixel(displ, screen);
+	white=BlackPixel(displ, screen);
 	white=WhitePixel(displ, screen);
 	red=RGB(255, 0, 0);
 	blue=(0, 0, 255);
-	win=XCreateSimpleWindow(displ, DefaultRootWindow(displ), 0, 0, 300, 300, 5, white, black);
+	background_color_dark=RGB(40, 40, 40);
+	foreground_color_dark=RGB(210, 210, 210);
+	win=XCreateSimpleWindow(displ, DefaultRootWindow(displ), 0, 0, dot.x, dot.y, 5, background_color_dark, background_color_dark);
 	XSetStandardProperties(displ, win, "plGE | Beta", "plGE | Beta", None, NULL, 0, NULL);
 	XSelectInput(displ, win, ExposureMask | ButtonPressMask | KeyPressMask);
 	gc=XCreateGC(displ, win, 0, 0);
-	XSetBackground(displ, gc, white);
-	XSetForeground(displ, gc, black);
+	XSetBackground(displ, gc, background_color_dark);
+	XSetForeground(displ, gc, background_color_dark);
 	XClearWindow(displ, win);
 	XMapRaised(displ, win);
 }
