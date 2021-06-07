@@ -2,6 +2,8 @@
 #include <X11/Xutil.h>
 #include <X11/Xos.h>
 
+#include 
+
 #include <stdlib.h>
 #include <iostream>
 
@@ -27,8 +29,8 @@ int main()
 	background_color_dark=RGB(40, 40, 40);
 	foreground_color_dark=RGB(210, 210, 210);
 
-	background_color_light=RGB(210, 210, 210);
-	foreground_color_light=RGB(40, 40, 40);
+	background_color_light=RGB(250, 250, 250);
+	foreground_color_light=RGB(15, 10, 10);
 
 	init(background_color_dark, foreground_color_dark);
 	while(true)
@@ -41,23 +43,32 @@ int main()
 		char text[255];
 		KeySym key;
 		if(event.type==KeyPress && XLookupString(&event.xkey, text, 255, &key, 0)==1) {
+			cout << "Pressed: " << int(text[0]) << endl;
 			if(text[0]=='c')
 			{
 				XClearWindow(displ, win);
 			}
 			if(text[0]=='l')
 			{
+				Window oldwin = win;
+				init(background_color_light, background_color_dark);
 				cout << "Light mode" << endl;
 				current_backgroundcolor=background_color_light;
-				current_forecolor=foreground_color_light;
+				current_forecolor=background_color_dark;
+				XDestroyWindow(displ, oldwin);
 			}
 			if(text[0]=='d')
 			{
+				Window oldwin = win;
+				init(background_color_dark, foreground_color_dark);
 				cout << "Dark mode" << endl;
 				current_backgroundcolor=background_color_dark;
 				current_forecolor=foreground_color_dark;
-				//XSetWindowBackground(displ, gc, current_forecolor);
-				XSetWindowBackground(displ, win, current_backgroundcolor);
+				XDestroyWindow(displ, oldwin);
+			}
+			if(int(text[0]) == 27)
+			{
+				
 			}
 		}
 		if(event.type == ButtonPress)
@@ -93,7 +104,7 @@ void init(unsigned long background_color, unsigned long foreground_color)
 	gc=XCreateGC(displ, win, 0, 0);
 	XSetBackground(displ, gc, current_backgroundcolor);
 	XSetForeground(displ, gc, current_forecolor);
-	XClearWindow(displ, win);
+	//XClearWindow(displ, win);
 	XMapRaised(displ, win);
 }
 
