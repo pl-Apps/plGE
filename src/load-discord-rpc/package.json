@@ -1,0 +1,14 @@
+{
+  "name": "load-discord-rpc",
+  "version": "1.0.0",
+  "description": "plGE Discord presences",
+  "main": "load-discord-rpc.js",
+  "scripts": {
+    "test": "test"
+  },
+  "author": "Peppo",
+  "license": "ISC",
+  "dependencies": {
+    "discord-rpc": "^3.2.0"
+  }
+}

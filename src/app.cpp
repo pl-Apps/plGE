@@ -1,9 +1,5 @@
-#include <X11/Xlib.h>
-#include <X11/Xutil.h>
-#include <X11/Xos.h>
-
-#include <stdlib.h>
-#include <iostream>
+#include "start_page.hpp"
+#include "loader.hpp"
 
 using namespace std;
 
@@ -36,6 +32,7 @@ int main()
 		XEvent event;
 		XNextEvent(displ, &event);
 		if(event.type==Expose && event.xexpose.count == 0) {
+			cout << event.xexpose.count;
 			draw();
 		}
 		char* text;
