@@ -2,8 +2,6 @@
 #include <X11/Xutil.h>
 #include <X11/Xos.h>
 
-#include 
-
 #include <stdlib.h>
 #include <iostream>
 
@@ -40,10 +38,12 @@ int main()
 		if(event.type==Expose && event.xexpose.count == 0) {
 			draw();
 		}
-		char text[255];
+		char* text;
 		KeySym key;
 		if(event.type==KeyPress && XLookupString(&event.xkey, text, 255, &key, 0)==1) {
 			cout << "Pressed: " << int(text[0]) << endl;
+			int dec_key = int(text[0]);
+
 			if(text[0]=='c')
 			{
 				XClearWindow(displ, win);
@@ -65,10 +65,6 @@ int main()
 				current_backgroundcolor=background_color_dark;
 				current_forecolor=foreground_color_dark;
 				XDestroyWindow(displ, oldwin);
-			}
-			if(int(text[0]) == 27)
-			{
-				
 			}
 		}
 		if(event.type == ButtonPress)
