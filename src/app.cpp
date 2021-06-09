@@ -1,4 +1,3 @@
-#include "start_page.hpp"
 #include "loader.hpp"
 
 using namespace std;
