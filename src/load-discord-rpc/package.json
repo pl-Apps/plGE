@@ -1,0 +1,19 @@
+{
+  "name": "load-discord-rpc",
+  "version": "1.0.0",
+  "description": "Load plGE Discord RPC",
+  "main": "load-discord-rpc.js",
+  "scripts": {
+    "test": "test"
+  },
+  "bin": "load-discord-rpc.js",
+  "pkg": {
+    "scripts": "./**/*.js"
+  },
+  "author": "Peppo",
+  "license": "MIT",
+  "dependencies": {
+    "colors": "^1.4.0",
+    "discord-rpc": "^3.2.0"
+  }
+}

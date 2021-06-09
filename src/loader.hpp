@@ -9,6 +9,11 @@
 
 #include <math.h>
 
+#include <thread>
+#include <pthread.h>
+
+#include "err.h"
+
 using namespace std;
 
 float clamp(float start_value, float min, float max)

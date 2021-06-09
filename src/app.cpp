@@ -1,4 +1,5 @@
 #include "loader.hpp"
+#include "sys.hpp"
 
 using namespace std;
 
@@ -16,6 +17,26 @@ unsigned long RGB(int r, int g, int b);
 struct coord {
 	int x,y;
 } dot;
+
+int load_rpc()
+{
+	if(exist("/usr/bin/plGEldrpc"))
+	{
+		system("/usr/bin/plGEldrpc");
+		cout << "Discord RPC Started" << endl;
+		while(true)
+		{
+
+		}
+	}
+	else
+	{
+		cout << "Impossible to start Discord RPC" << endl;
+	}
+	return 1;
+}
+
+thread discordRPCthread(load_rpc);
 
 int main()
 {
